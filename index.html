@@ -20,6 +20,9 @@
       required
     >
     <button type="submit">Search</button>
+    <p id ="error-message" class ="error-msg" style ="display: none;">
+      Please enter a valid tree ID (1 - 970). OR Tree ID not found in the dataset. Please try again.
+    </p>
   </form>
 
   <script src="trees.js"></script>
@@ -36,14 +39,18 @@
         if (!/^[0-9]+$/.test(id) || !TREES.hasOwnProperty(id)) {
           // Invalid — do not navigate. Give a subtle visual cue.
           input.classList.add('invalid');
+
+          document.getElementById('error-message').style.display = 'block';// Show the error message
           return;
         }
         input.classList.remove('invalid');
+        document.getElementById('error-message').style.display = 'none';// Hide the error message
         window.location.href = 'tree.html?id=' + encodeURIComponent(id);
       });
 
       input.addEventListener('input', function () {
         input.classList.remove('invalid');
+        document.getElementById('error-message').style.display = 'none';// Hide the error message on input
       });
     })();
   </script>
